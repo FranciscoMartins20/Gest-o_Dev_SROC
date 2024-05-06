@@ -1,0 +1,124 @@
+/* TicketPage.css */
+.container {
+    margin: 40px auto;
+    font-family: 'Arial', sans-serif;
+    max-width: 1200px; /* Limita a largura máxima do container */
+    box-shadow: 0 0 15px rgba(0,0,0,0.1); /* Adiciona sombra sutil ao container */
+    padding: 20px; /* Espaçamento interno */
+    background: #fff; /* Fundo branco para destaque */
+}
+
+h1 {
+    text-align: center;
+    color: #333; /* Cor mais suave para o título */
+    margin-bottom: 20px; /* Espaçamento abaixo do título */
+}
+
+table {
+    width: 100%;
+    border-collapse: collapse;
+    margin-top: 20px;
+    box-shadow: 0 0 10px rgba(0,0,0,0.05); /* Sombra sutil para a tabela */
+}
+
+th, td {
+    border: 1px solid #ddd; /* Bordas mais suaves */
+    padding: 12px 15px; /* Aumenta o espaçamento */
+    text-align: left;
+    color: #555; /* Cor suave para o texto */
+}
+
+th {
+    background-color: #f8f8f8; /* Fundo suave para cabeçalhos */
+    font-weight: bold;
+}
+
+/* Carregando e Mensagem de Erro */
+.loading, .error {
+    text-align: center;
+    margin-top: 20px;
+    font-size: 16px;
+    color: #666; /* Cor suave para mensagens */
+}
+
+/* Estilos para hover em linhas de tabela, com transição suave */
+tbody tr:hover {
+    background-color: #f0f0f0; /* Cor suave para o hover */
+    cursor:pointer;
+}
+
+tbody tr {
+    transition: background-color 0.3s ease;
+}
+
+
+.ticket-page {
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif; /* Fonte limpa e moderna */
+    padding: 20px; /* Espaçamento interno para a página */
+    color: #333; /* Cor do texto */
+}
+
+.ticket-title {
+    color: #2c3e50; /* Cor escura para o título para destaque */
+    margin-bottom: 20px; /* Espaço abaixo do título */
+}
+
+.filter-container, .actions-container {
+    margin-bottom: 20px; /* Espaçamento abaixo dos contêineres de filtros e ações */
+    padding: 15px;
+    background-color: #fff; /* Fundo branco para seções de filtros e botões */
+    border-radius: 8px; /* Bordas arredondadas para os painéis */
+    box-shadow: 0 2px 5px rgba(0,0,0,0.1); /* Sombra sutil para elevação */
+}
+
+
+.filter-input, .action-button,.filter-clear-button {
+    margin-right: 10px; /* Espaçamento entre os inputs e botões */
+    padding: 10px 15px; /* Padding confortável para toque */
+    border: 2px solid #ccc; /* Borda sutil */
+    border-radius: 4px; /* Bordas arredondadas para inputs e botões */
+    outline: none; /* Remove o contorno ao focar */
+}
+
+.filter-input:focus, .action-button:hover ,.filter-clear-button:hover {
+    border-color: #361f24; /* Muda a cor da borda ao focar ou passar o mouse */
+}
+
+.action-button, .filter-clear-button {
+    background-color: #77434f; /* Cor de fundo para botões de ação */
+    color: white; /* Texto branco para contraste */
+    cursor: pointer; /* Cursor de ponteiro para indicar clicabilidade */
+    transition: background-color 0.3s, transform 0.3s; /* Transição suave para feedback */
+}
+
+.action-button:hover, .filter-clear-button:hover {
+    background-color: #361f24; /* Mudança de cor ao passar o mouse */
+    transform: translateY(-2px); /* Pequeno efeito de elevação ao passar o mouse */
+}
+
+.tickets-table {
+    width: 100%; /* Ocupa a largura total */
+    border-collapse: collapse; /* Colapsa as bordas das células */
+    background-color: #fff; /* Fundo branco para a tabela */
+    box-shadow: 0 4px 8px rgba(0,0,0,0.1); /* Sombra para elevação */
+}
+
+.tickets-table th, .tickets-table td {
+    text-align: left; /* Alinhamento do texto */
+    padding: 12px 20px; /* Espaçamento interno nas células */
+    border-bottom: 1px solid #ddd; /* Linha de separação sutil */
+}
+
+.tickets-table th {
+    background-color: #77434f; /* Fundo azul para o cabeçalho */
+    color: white; /* Texto branco para contraste */
+}
+
+.tickets-table tr:hover {
+    background-color: #f0f0f0; /* Muda o fundo ao passar o mouse */
+}
+
+.loading-message, .error-message {
+    color: #e74c3c; /* Cor para mensagens de carregamento e erro */
+    text-align: center; /* Centraliza o texto */
+}

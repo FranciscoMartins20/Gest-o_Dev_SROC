@@ -1,0 +1,23 @@
+/* styles.css */
+/* Estilos para o container principal */
+.app-container {
+    display: flex;
+  }
+  
+  /* Estilos para a barra lateral */
+  .sidebar {
+    width: 250px; /* Largura da barra lateral */
+    background-color: #333; /* Cor de fundo da barra lateral */
+    color: #fff; /* Cor do texto na barra lateral */
+    position: fixed; /* Fixar a barra lateral */
+    height: 100%; /* Altura da barra lateral */
+    overflow-y: auto; /* Permitir rolagem na barra lateral se necessário */
+  }
+  
+  /* Estilos para o conteúdo */
+  .content-container {
+    flex: 1; /* O conteúdo ocupa o espaço restante */
+    padding: 20px; /* Espaçamento interno do conteúdo */
+    overflow-y: auto; /* Permitir rolagem no conteúdo se necessário */
+  }
+  

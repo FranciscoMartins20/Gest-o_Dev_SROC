@@ -1,0 +1,39 @@
+/* Estilo para centralizar o formulário de login na página */
+.login-form-container {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 100vh; /* Utiliza 100% da altura da viewport para centralizar verticalmente */
+  }
+  
+  .login-form {
+    border-radius: 8px;
+    box-shadow: 0px 4px 8px rgba(0, 0, 0, 0.1);
+    padding: 20px; /* Padding ao redor do formulário para dar espaço */
+    width: 100%; /* Ocupa a largura do container até um máximo definido abaixo */
+    max-width: 400px; /* Largura máxima do formulário para manter a forma */
+  }
+  
+  .login-title {
+    color: #333333; /* Cor do texto do título */
+  }
+  
+  .login-input {
+    margin-top: 10px; /* Espaçamento superior para os inputs */
+  }
+  
+  .login-input.username,
+  .login-input.password {
+    border-color: #0056b3; /* Cor da borda para inputs */
+  }
+  
+  .login-button {
+    background-color: #007bff; /* Cor de fundo do botão de login */
+    color: #ffffff; /* Cor do texto do botão */
+    margin-top: 20px; /* Espaçamento superior para o botão */
+  }
+  
+  .login-button:hover {
+    background-color: #0056b3; /* Cor de fundo do botão ao passar o mouse */
+  }
+  
