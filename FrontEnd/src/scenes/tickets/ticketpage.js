@@ -1,5 +1,5 @@
 import React, { useState, useEffect, useCallback } from 'react';
-import { fetchTickets, fetchCompanyNameByNIF,fetchUserDetailsByUsername } from '../../service/api';
+import { fetchTickets, fetchCompanyNameByNIF,fetchUserDetailsByUsername, fetchAllCompanies, fetchAllUsers, } from '../../service/api';
 import './ticketpage.css';
 import ExcelJS from 'exceljs';
 import { useNavigate } from 'react-router-dom';
@@ -137,6 +137,8 @@ const TicketPage = () => {
     const [isLoading, setIsLoading] = useState(true);
     const [error, setError] = useState(null);
     const navigate = useNavigate();
+    const [companies, setCompanies] = useState([]);
+    const [users, setUsers] = useState([]);
     const [filters, setFilters] = useState({
         Company: '',
         Date: '',
@@ -214,6 +216,22 @@ const TicketPage = () => {
         loadTickets();
     }, [filters, loadTickets]);
 
+    useEffect(() => {
+        const fetchCompaniesAndUsers = async () => {
+            try {
+                const companiesData = await fetchAllCompanies();
+                setCompanies(companiesData);
+
+                const usersData = await fetchAllUsers();
+                setUsers(usersData);
+            } catch (error) {
+                console.error('Erro ao buscar empresas e usuários:', error);
+            }
+        };
+
+        fetchCompaniesAndUsers();
+    }, []);
+
     return (
         <div className="ticket-page">
             <h1 className="ticket-title">Lista de Serviços</h1>
@@ -270,8 +288,9 @@ const TicketPage = () => {
                     onChange={handleFilterChange}
                     className="filter-input filter-responsible"
                 >
-                    <option value="">Responsável</option>
-                    <option value="Administrador">Administrador</option>
+                   <option value="">Responsável</option>
+                    {users.map(user => (
+                        <option key={user.Username} value={user.Name}>{user.Name}</option>))}
              
 
                 </select>
