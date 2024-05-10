@@ -10,20 +10,18 @@ const exportToExcel = async (tickets, fileName, month, year, responsible) => {
     const workbook = new ExcelJS.Workbook();
     const worksheet = workbook.addWorksheet('Tickets');
 
-    // Configurações iniciais da planilha
-    worksheet.mergeCells('A1', 'G3');
-    const titleCell = worksheet.getCell('A1');
-    titleCell.value = 'SROC\nReport';
-    titleCell.font = { name: 'Calibri', size: 18, bold: true, color: { argb: 'FF6A8DAD' } };
-    titleCell.alignment = { horizontal: 'center', vertical: 'middle', wrapText: true };
 
-    // Adicionando uma imagem (logo)
-    // Certifique-se de ter a imagem_info disponível aqui
-    const logo = workbook.addImage({
-        base64: imagem_info,
-        extension: 'png',
-    });
-    worksheet.addImage(logo, 'H1:I5');
+// Adicionar uma imagem (logo) às células de A1 a G3
+const logo = workbook.addImage({
+    base64: imagem_info,
+    extension: 'png',
+});
+
+worksheet.addImage(logo, {
+    tl: { col: 0.2, row: 0.2 }, // Configuração de posição superior esquerda
+    br: { col: 6.0, row: 4.3 } // Configuração de posição inferior direita
+});
+
 
     worksheet.views = [{ showGridLines: false }];
 
@@ -43,7 +41,6 @@ const exportToExcel = async (tickets, fileName, month, year, responsible) => {
         width: col.width
     }));
 
-    // Criando a tabela de tickets
     const table = worksheet.addTable({
         name: 'TicketsTable',
         ref: 'A6',
@@ -219,7 +216,7 @@ const TicketPage = () => {
 
     return (
         <div className="ticket-page">
-            <h1 className="ticket-title">Lista de Tickets</h1>
+            <h1 className="ticket-title">Lista de Serviços</h1>
             <div className="filter-container">
                 <input
                     type="text"
@@ -274,8 +271,8 @@ const TicketPage = () => {
                     className="filter-input filter-responsible"
                 >
                     <option value="">Responsável</option>
-                    <option value="">Francisco Martins</option>
-                    <option value="">Clara Gomes</option>
+                    <option value="Administrador">Administrador</option>
+             
 
                 </select>
                 <button onClick={clearFilters} className="filter-clear-button">Limpar Filtros</button>

@@ -1,92 +1,94 @@
 import React, { useState, useEffect } from 'react';
+import Select from 'react-select';
 import { useNavigate } from 'react-router-dom';
-import { createTicket, fetchAllCompanies, fetchAllUsers, fetchCompanyNameByNIF } from '../../service/api'; // Importe a função fetchAllUsers
+import { createTicket, fetchAllCompanies, fetchAllUsers, fetchCompanyNameByNIF } from '../../service/api';
 import "./createticket.css";
 
 const CreateTicket = () => {
     const navigate = useNavigate();
-
-    // State para os dados do ticket
     const [Date, setDate] = useState('');
     const [Time, setTime] = useState('');
     const [CompanyNIF, setCompanyNIF] = useState('');
-    const [CompanyName, setCompanyName] = useState(''); 
     const [Service, setService] = useState('');
     const [Commentary, setCommentary] = useState('');
     const [Status, setStatus] = useState('');
     const [Responsible, setResponsible] = useState('');
-    const [users, setUsers] = useState([]); // Estado para armazenar a lista de usuários
-
-    // State para armazenar as empresas disponíveis
+    const [users, setUsers] = useState([]);
     const [companies, setCompanies] = useState([]);
-
-    // State para controlar a submissão do formulário
     const [isSubmitting, setIsSubmitting] = useState(false);
 
-    // Função para buscar todas as empresas disponíveis
-    const fetchCompanies = async () => {
-        try {
-            const companiesData = await fetchAllCompanies();
-            setCompanies(companiesData);
-        } catch (error) {
-            console.error('Erro ao buscar empresas:', error);
-            // Trate o erro conforme necessário
-        }
-    };
-
-    // Função para buscar todos os usuários disponíveis
-    const fetchUsers = async () => {
-        try {
-            const usersData = await fetchAllUsers();
-            setUsers(usersData);
-        } catch (error) {
-            console.error('Erro ao buscar usuários:', error);
-            // Trate o erro conforme necessário
-        }
-    };
-
-    // UseEffect para buscar as empresas e usuários quando o componente for montado
     useEffect(() => {
+        const fetchCompanies = async () => {
+            try {
+                const companiesData = await fetchAllCompanies();
+                setCompanies(companiesData);
+            } catch (error) {
+                console.error('Erro ao buscar empresas:', error);
+            }
+        };
+
+        const fetchUsers = async () => {
+            try {
+                const usersData = await fetchAllUsers();
+                setUsers(usersData);
+            } catch (error) {
+                console.error('Erro ao buscar usuários:', error);
+            }
+        };
+
         fetchCompanies();
         fetchUsers();
     }, []);
 
-    // Função assíncrona para buscar e definir o nome da empresa com base no NIF selecionado
     const fetchCompanyName = async (NIF) => {
         try {
             const companyName = await fetchCompanyNameByNIF(NIF);
-            setCompanyName(companyName);
+            // Utilize `companyName` caso precise exibir ou armazenar em outro lugar.
         } catch (error) {
             console.error('Erro ao buscar nome da empresa:', error);
-            // Trate o erro conforme necessário
         }
+    };
+
+    const handleSelectChange = (setter, selectedOption) => {
+        setter(selectedOption ? selectedOption.value : '');
     };
 
     const handleSubmit = async (event) => {
         event.preventDefault();
         setIsSubmitting(true);
 
-        // Criação do objeto ticketData baseado nos estados
         const ticketData = {
-            Date: Date,
-            Time: Time,
-            Company: CompanyNIF, // Envia o NIF da empresa selecionada
-            Service: Service,
-            Commentary: Commentary,
-            Status: Status,
-            Responsible: Responsible
+            Date,
+            Time,
+            Company: CompanyNIF,
+            Service,
+            Commentary,
+            Status,
+            Responsible
         };
 
         try {
             await createTicket(ticketData);
-            navigate('/ticket'); // Redirecionar para a página de lista de tickets
+            navigate('/ticket');
         } catch (error) {
             console.error('Falha ao criar ticket:', error);
             alert('Falha ao criar ticket: ' + error.message);
         } finally {
-            setIsSubmitting(false); // Resetar o estado de submissão
+            setIsSubmitting(false);
         }
     };
+
+    const companyOptions = companies.map(company => ({
+        value: company.NIF,
+        label: company.Name
+    }));
+    const userOptions = users.map(user => ({
+        value: user.Username,
+        label: user.Name
+    }));
+
+    const selectedCompany = companyOptions.find(option => option.value === CompanyNIF);
+    const selectedUser = userOptions.find(option => option.value === Responsible);
 
     return (
         <div className="create-ticket-page">
@@ -110,30 +112,26 @@ const CreateTicket = () => {
                 </label>
                 <label>
                     Empresa:
-                    <select
-                        value={CompanyNIF}
-                        onChange={async (e) => {
-                            setCompanyNIF(e.target.value);
-                            await fetchCompanyName(e.target.value);
+                    <Select
+                        value={selectedCompany}
+                        options={companyOptions}
+                        onChange={(selected) => {
+                            handleSelectChange(setCompanyNIF, selected);
+                            fetchCompanyName(selected ? selected.value : '');
                         }}
-                    >
-                        <option value="">Selecione uma empresa</option>
-                        {companies.map(company => (
-                            <option key={company.NIF} value={company.NIF}>{company.Name}</option>
-                        ))}
-                    </select>
+                        placeholder="Selecione uma empresa"
+                        isClearable
+                    />
                 </label>
                 <label>
                     Responsável:
-                    <select
-                        value={Responsible}
-                        onChange={e => setResponsible(e.target.value)}
-                    >
-                        <option value="">Selecione um responsável</option>
-                        {users.map(user => (
-                            <option key={user.Username} value={user.Username}>{user.Name}</option>
-                        ))}
-                    </select>
+                    <Select
+                        value={selectedUser}
+                        options={userOptions}
+                        onChange={(selected) => handleSelectChange(setResponsible, selected)}
+                        placeholder="Selecione um responsável"
+                        isClearable
+                    />
                 </label>
                 <label>
                     Serviços:
@@ -149,21 +147,13 @@ const CreateTicket = () => {
                         onChange={e => setCommentary(e.target.value)}
                     />
                 </label>
-
-      
                 <label>
                     Estado:
-                    <select  value={Status}
-                        onChange={e => setStatus(e.target.value)}
->
-                   
+                    <select value={Status} onChange={e => setStatus(e.target.value)}>
                         <option value="Pendente">Pendente</option>
-                    <option value="Em Progresso">Em curso</option>
-                    <option value="Finalizado">Finalizado</option>
+                        <option value="Em Progresso">Em curso</option>
+                        <option value="Finalizado">Finalizado</option>
                     </select>
-                        
-                        
-                   
                 </label>
                 <button type="submit" disabled={isSubmitting}>
                     {isSubmitting ? 'Criando...' : 'Criar Ticket'}
