@@ -40,7 +40,6 @@ function ApplicationContent() {
 
   return (
     <div className="app">
-      {isAuthenticated && <Sidebar />}
       <main className="content">
         {isAuthenticated && <Topbar setIsSidebar={() => {}} />}
         <Routes>
