@@ -1,12 +1,19 @@
 import React, { useState } from "react";
-import { AppBar, Toolbar, Typography, Box, Button, Menu, MenuItem } from "@mui/material";
-import MenuIcon from '@mui/icons-material/Menu';
+import { AppBar, Toolbar, Typography, Box, Button, Menu, MenuItem,Avatar } from "@mui/material";
 import HomeOutlinedIcon from '@mui/icons-material/HomeOutlined';
 import ArticleIcon from '@mui/icons-material/Article';
 import MapOutlinedIcon from '@mui/icons-material/MapOutlined';
 import { Link } from "react-router-dom";
 import { useAuth } from '../../context/AuthContext';
 import './Topbar.css'; // Importe o arquivo CSS aqui
+import fundoImage from '../../scenes/fundo.png';
+
+
+
+
+
+
+
 
 const TopbarItem = ({ title, to, icon, logoutFunction }) => (
   <Button
@@ -32,7 +39,10 @@ const Topbar = () => {
   return (
     <AppBar position="static" className="appBar">
       <Toolbar>
-      <Box sx={{ flexGrow: 0.1 }} />
+      <Box sx={{ flexGrow: 0.01 }}>
+  <Avatar />
+      </Box>
+       
         <Typography variant="h6" component="div" sx={{ flexGrow: 1 }} className="topbarTitle">
           {user.Name || "Nome do Utilizador"}
         </Typography>
