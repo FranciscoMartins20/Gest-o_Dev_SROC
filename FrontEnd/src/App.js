@@ -10,7 +10,7 @@ import TicketPage from "./scenes/tickets/ticketpage";
 import CreateTicket from "./scenes/tickets/createticket";
 import EditTicket from "./scenes/tickets/editticket";
 import Topbar from "./scenes/global/Topbar";
-import Sidebar from "./scenes/global/Sidebar";
+
 
 function App() {
   const [theme, colorMode] = useMode();

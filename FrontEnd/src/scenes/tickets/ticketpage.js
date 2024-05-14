@@ -76,20 +76,20 @@ worksheet.addImage(logo, {
     // Adicionando os totais à mesma planilha
     const totalsStartRow = headers.length + 8;
     const totalsStartColumn = 1;
-    worksheet.getCell(`A${totalsStartRow}`).value = 'Empresa';
-    worksheet.getCell(`B${totalsStartRow}`).value = 'Total Horas';
+    worksheet.getCell(`I${totalsStartRow}`).value = 'Empresa';
+    worksheet.getCell(`J${totalsStartRow}`).value = 'Total Horas';
     let totalsRowIndex = totalsStartRow + 1;
     for (const company in totalHoursByCompany) {
         const totalMinutes = totalHoursByCompany[company];
         const hours = Math.floor(totalMinutes / 60);
         const minutes = totalMinutes % 60;
-        worksheet.getCell(`A${totalsRowIndex}`).value = company;
-        worksheet.getCell(`B${totalsRowIndex}`).value = `${hours}:${minutes.toString().padStart(2, '0')}`;
+        worksheet.getCell(`I${totalsRowIndex}`).value = company;
+        worksheet.getCell(`J${totalsRowIndex}`).value = `${hours}:${minutes.toString().padStart(2, '0')}`;
         totalsRowIndex++;
     }
 
     // Formatando a tabela de totais
-    const empresaRange = worksheet.getCell(`A${totalsStartRow}:A${totalsRowIndex - 1}`);
+    const empresaRange = worksheet.getCell(`I${totalsStartRow}:I${totalsRowIndex - 1}`);
     empresaRange.border = {
         top: { style: 'thin' },
         left: { style: 'thin' },
@@ -100,7 +100,7 @@ worksheet.addImage(logo, {
     empresaRange.fill = { type: 'pattern', pattern: 'solid', fgColor: { argb: 'FFD9EAD3' } };
     empresaRange.font = { bold: true };
     
-    const totalHorasRange = worksheet.getCell(`B${totalsStartRow}:B${totalsRowIndex - 1}`);
+    const totalHorasRange = worksheet.getCell(`J${totalsStartRow}:J${totalsRowIndex - 1}`);
     totalHorasRange.border = {
         top: { style: 'thin' },
         left: { style: 'thin' },

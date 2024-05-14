@@ -6,7 +6,7 @@ import MapOutlinedIcon from '@mui/icons-material/MapOutlined';
 import { Link } from "react-router-dom";
 import { useAuth } from '../../context/AuthContext';
 import './Topbar.css'; // Importe o arquivo CSS aqui
-import fundoImage from '../../scenes/fundo.png';
+
 
 
 
