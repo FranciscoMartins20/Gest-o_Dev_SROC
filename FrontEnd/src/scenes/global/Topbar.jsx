@@ -7,14 +7,6 @@ import { Link } from "react-router-dom";
 import { useAuth } from '../../context/AuthContext';
 import './Topbar.css'; // Importe o arquivo CSS aqui
 
-
-
-
-
-
-
-
-
 const TopbarItem = ({ title, to, icon, logoutFunction }) => (
   <Button
     color="inherit"
